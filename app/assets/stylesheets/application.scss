@@ -1,7 +1,3 @@
-// @import "bootstrap";
-// @import "bootstrap-variables";
-// @import "bootstrap-functions";
-
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap/scss/_variables";
 @import "bootstrap/scss/_functions";
@@ -11,6 +7,7 @@
 @import "vendors/iconfonts/mdi/css/materialdesignicons.min.css";
 @import "vendors/iconfonts/ionicons/css/ionicons.css";
 @import "vendors/iconfonts/typicons/src/font/typicons.css";
+@import "vendors/iconfonts/font-awesome/css/font-awesome.min.css";
 @import "vendors/iconfonts/flag-icon-css/css/flag-icon.min.css";
 @import "vendors/css/vendor.bundle.base.css";
 @import "vendors/css/vendor.bundle.addons.css";

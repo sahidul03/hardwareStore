@@ -18,10 +18,6 @@ require("channels")
 
 import 'bootstrap'
 
-document.addEventListener("turbolinks:load", () => {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-
 
 // import "../js/jquery-3.3.1.slim.min"
 // import "../js/popper.min"
@@ -33,7 +29,7 @@ document.addEventListener("turbolinks:load", () => {
 // import "./chart"
 // import "./misc"
 // import "./off-canvas"
-// import "./dashboard"
+import "./dashboard"
 // ------------------------------------------------------------------------------------------------------
 // require("js/jquery-3.3.1.slim.min")
 // require("js/popper.min")

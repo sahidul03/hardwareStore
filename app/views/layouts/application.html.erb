@@ -13,3 +13,16 @@
     <%= yield %>
   </body>
 </html>
+
+<script>
+  $(document).ready(function(){
+    
+    $(".navbar-toggler.navbar-toggler-right").click(function(e) {
+      e.preventDefault();
+      $("#sidebar").toggleClass("active");
+    });
+
+  });
+</script> 
+
+
