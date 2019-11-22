@@ -2,6 +2,12 @@
 // @import "bootstrap-variables";
 // @import "bootstrap-functions";
 
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_mixins";
+
+
 @import "vendors/iconfonts/mdi/css/materialdesignicons.min.css";
 @import "vendors/iconfonts/ionicons/css/ionicons.css";
 @import "vendors/iconfonts/typicons/src/font/typicons.css";
@@ -10,3 +16,4 @@
 @import "vendors/css/vendor.bundle.addons.css";
 @import "scss/shared/style";
 @import "scss/demo_1/style";
+

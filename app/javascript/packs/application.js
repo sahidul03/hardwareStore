@@ -16,20 +16,33 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+import 'bootstrap'
 
-// require("jquery3")
-// require("popper")
-// require("bootstrap")
+document.addEventListener("turbolinks:load", () => {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 
-require("js/jquery-3.3.1.slim.min")
-require("js/popper.min")
-require("js/bootstrap.min")
+// import "../js/jquery-3.3.1.slim.min"
+// import "../js/popper.min"
+// import "../js/bootstrap.min"
 
-require("vendors/js/vendor.bundle.base")
-require("vendors/js/vendor.bundle.addons")
+// import "./vendor.bundle.base"
+// import "./vendor.bundle.addons"
 
-require("js/shared/chart")
-require("js/shared/misc")
-require("js/shared/off-canvas")
-require("js/demo_1/dashboard")
+// import "./chart"
+// import "./misc"
+// import "./off-canvas"
+// import "./dashboard"
+// ------------------------------------------------------------------------------------------------------
+// require("js/jquery-3.3.1.slim.min")
+// require("js/popper.min")
+// require("js/bootstrap.min")
+
+// require("vendors/js/vendor.bundle.base")
+// require("vendors/js/vendor.bundle.addons")
+
+// require("js/shared/chart")
+// require("js/shared/misc")
+// require("js/shared/off-canvas")
+// require("js/demo_1/dashboard")
