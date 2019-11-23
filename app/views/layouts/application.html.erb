@@ -10,7 +10,20 @@
   </head>
 
   <body>
-    <%= yield %>
+
+  <div class="container-scroller">
+    <%= render "layouts/navbar" %>
+  <div class="container-fluid page-body-wrapper">
+    <%= render "layouts/sidebar" %>
+    <div class="main-panel">
+      <%= yield %>
+      <%= render "layouts/footer" %>
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+    
   </body>
 </html>
 
