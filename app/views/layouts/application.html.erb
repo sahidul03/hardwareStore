@@ -10,20 +10,24 @@
   </head>
 
   <body>
-
-  <div class="container-scroller">
-    <%= render "layouts/navbar" %>
-  <div class="container-fluid page-body-wrapper">
-    <%= render "layouts/sidebar" %>
-    <div class="main-panel">
+    <% if user_signed_in? %>
+      <div class="container-scroller">
+        <%= render "layouts/navbar" %>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <div class="container-fluid page-body-wrapper">
+          <%= render "layouts/sidebar" %>
+          <div class="main-panel">
+            <%= yield %>
+            <%= render "layouts/footer" %>
+          </div>
+          <!-- main-panel ends -->
+        </div>
+      <!-- page-body-wrapper ends -->
+      </div>
+    <% else %>
       <%= yield %>
-      <%= render "layouts/footer" %>
-    </div>
-    <!-- main-panel ends -->
-  </div>
-  <!-- page-body-wrapper ends -->
-</div>
-    
+    <% end %>
   </body>
 </html>
 

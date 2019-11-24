@@ -1,0 +1,56 @@
+<div class="container-scroller">
+<div class="container-fluid page-body-wrapper full-page-wrapper">
+  <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
+    <div class="row w-100">
+      <div class="col-lg-4 mx-auto">
+        <div class="auto-form-wrapper">
+            <h4 class="card-title">Change your password</h4>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <%= f.hidden_field :reset_password_token %>
+            <div class="form-group">
+              <label class="label">New password</label>
+              <% if @minimum_password_length %>
+                <p>(<%= @minimum_password_length %> characters minimum)</p>
+              <% end %>
+              <div class="input-group">
+                <%= f.password_field :password, autocomplete: "new-password" , :class=>"form-control" %>
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="mdi mdi-check-circle-outline"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label">Confirm new password</label>
+              <div class="input-group">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password" , :class=>"form-control" %>
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="mdi mdi-check-circle-outline"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.submit "Change Password", :class=>"btn btn-primary submit-btn btn-block",  data: { disable_with: "Changing password..." } %>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+              <div class="form-check form-check-flat mt-0">
+                <label class="form-check-label">
+              </div>
+              <% unless user_signed_in? %>
+                <%= link_to "Back to Login page", new_user_session_path, :class => 'text-primary text-small forgot-password text-black', data: { no_turbolink: true } %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <%= render "layouts/blank_layout_footer" %>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
