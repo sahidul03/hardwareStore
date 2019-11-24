@@ -13,11 +13,18 @@
     <% if user_signed_in? %>
       <div class="container-scroller">
         <%= render "layouts/navbar" %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
         <div class="container-fluid page-body-wrapper">
           <%= render "layouts/sidebar" %>
           <div class="main-panel">
+            <% if notice %>
+              <div class="alert alert-success" role="alert">
+                <%= notice %>
+              </div>
+            <% elsif alert %>
+              <div class="alert alert-danger" role="alert">
+                <%= alert %>
+              </div>
+            <% end %>
             <%= yield %>
             <%= render "layouts/footer" %>
           </div>
@@ -37,6 +44,10 @@
     $(".navbar-toggler.navbar-toggler-right").click(function(e) {
       e.preventDefault();
       $("#sidebar").toggleClass("active");
+    });
+
+    $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert").slideUp(500);
     });
 
   });
