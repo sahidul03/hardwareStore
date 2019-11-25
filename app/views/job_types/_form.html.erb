@@ -1,0 +1,22 @@
+<%= form_with(model: job_type, local: true, class: 'forms-sample') do |f| %>
+  <div class="form-group row">
+    <label for="title" class="col-sm-3 col-form-label">Job Type Title</label>
+    <div class="col-sm-9">
+      <%= f.text_field :title, autofocus: true, :class=>"form-control", :placeholder=>"Enter a Job Type Title" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="active" class="col-3 col-form-label">Active</label>
+    <div class="col-9">
+      <%= f.check_box :active %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="details" class="col-sm-3 col-form-label">Details</label>
+    <div class="col-sm-9">
+      <%= f.text_area :details, :class=>"form-control", :placeholder=>"Enter Details if you have" %>
+    </div>
+  </div>
+  <%= f.submit "Submit", :class=>'btn btn-success mr-2', data: { disable_with: "Please wait ..." } %>
+  <%= link_to 'Cancel', job_types_path, class: 'btn btn-light' %>
+<% end %>
