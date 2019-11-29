@@ -25,7 +25,9 @@
                 <%= alert %>
               </div>
             <% end %>
-            <%= yield %>
+            <div class="content-wrapper">
+              <%= yield %>
+            </div>
             <%= render "layouts/footer" %>
           </div>
           <!-- main-panel ends -->
@@ -40,7 +42,7 @@
 
 <script>
   $(document).ready(function(){
-    
+
     $(".navbar-toggler.navbar-toggler-right").click(function(e) {
       e.preventDefault();
       $("#sidebar").toggleClass("active");
@@ -51,6 +53,4 @@
     });
 
   });
-</script> 
-
-
+</script>

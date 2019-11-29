@@ -1,46 +1,42 @@
-<div class="main">
-  <div class="content-wrapper">
-    <div class="row">
-      <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-header">
-              <span class="display-4 text-primary">JOB TYPES</span>
-              <%= link_to 'Add New Job Type', new_job_type_path, class: 'btn btn-primary pull-right' %>
-            </div>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th style="max-width: 25%">Details</th>
-                  <th>Status</th>
-                  <th>Created By</th>
-                  <th>Created At</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @job_types.each do |job_type| %>
-                  <%- user = job_type.user %>
-                  <tr>
-                    <td><%= job_type.title %></td>
-                    <td><%= job_type.details %></td>
-                    <td>
-                      <label class="badge badge-<%= job_type.active ? 'success' : 'danger' %>"><%= job_type.status %></label>
-                    </td>
-                    <td class="text-primary" data-toggle="tooltip" data-placement="top" title="<%= user.name %>"> <%= user.email %> </td>
-                    <td> <%= job_type.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
-                    <td>
-                      <%= link_to edit_job_type_path(job_type), class: 'btn btn-outline-primary' do %>
-                        <i class="fa fa-edit"></i>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-header">
+          <span class="display-4 text-primary">JOB TYPES</span>
+          <%= link_to 'Add New Job Type', new_job_type_path, class: 'btn btn-primary pull-right' %>
         </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th style="max-width: 25%">Details</th>
+              <th>Status</th>
+              <th>Created By</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @job_types.each do |job_type| %>
+              <%- user = job_type.user %>
+              <tr>
+                <td><%= job_type.title %></td>
+                <td><%= job_type.details %></td>
+                <td>
+                  <label class="badge badge-<%= job_type.active ? 'success' : 'danger' %>"><%= job_type.status %></label>
+                </td>
+                <td class="text-primary" data-toggle="tooltip" data-placement="top" title="<%= user.name %>"> <%= user.email %> </td>
+                <td> <%= job_type.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
+                <td>
+                  <%= link_to edit_job_type_path(job_type), class: 'btn btn-outline-primary' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

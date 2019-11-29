@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_060137) do
+ActiveRecord::Schema.define(version: 2019_11_29_074924) do
 
   create_table "job_types", force: :cascade do |t|
     t.string "title"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 2019_11_25_060137) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_job_types_on_user_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "name"
+    t.text "details"
+    t.boolean "active", default: true
+    t.integer "user_id", null: false
+    t.integer "job_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_type_id"], name: "index_jobs_on_job_type_id"
+    t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,4 +49,6 @@ ActiveRecord::Schema.define(version: 2019_11_25_060137) do
   end
 
   add_foreign_key "job_types", "users"
+  add_foreign_key "jobs", "job_types"
+  add_foreign_key "jobs", "users"
 end
