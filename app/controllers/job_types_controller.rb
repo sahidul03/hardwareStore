@@ -1,4 +1,5 @@
 class JobTypesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_job_type, only: [:show, :edit, :update, :destroy]
 
   # GET /job_types
@@ -28,7 +29,7 @@ class JobTypesController < ApplicationController
 
     respond_to do |format|
       if @job_type.save
-        format.html { redirect_to job_types_path , notice: 'Job type was successfully created.' }
+        format.html { redirect_to job_types_url , notice: 'Job type was successfully created.' }
         format.json { render :show, status: :created, location: @job_type }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class JobTypesController < ApplicationController
   def update
     respond_to do |format|
       if @job_type.update(job_type_params)
-        format.html { redirect_to job_types_path, notice: 'Job type was successfully updated.' }
+        format.html { redirect_to job_types_url, notice: 'Job type was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_type }
       else
         format.html { render :edit }

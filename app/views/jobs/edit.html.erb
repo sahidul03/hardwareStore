@@ -1,6 +1,16 @@
-<h1>Editing Job</h1>
-
-<%= render 'form', job: @job %>
-
-<%= link_to 'Show', @job %> |
-<%= link_to 'Back', jobs_path %>
+<div class="row">
+  <div class="col-md-12 d-flex align-items-stretch grid-margin">
+    <div class="row flex-grow">
+      <div class="col-12 stretch-card">
+        <div class="card">
+          <div class="card-header">
+            <span class="display-4 text-primary">Update Job</span>
+          </div>
+          <div class="card-body">
+            <%= render 'form', job: @job %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

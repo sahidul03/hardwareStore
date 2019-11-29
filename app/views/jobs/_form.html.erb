@@ -1,42 +1,28 @@
-<%= form_with(model: job, local: true) do |form| %>
-  <% if job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
-      <ul>
-        <% job.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<%= form_with(model: job, local: true, class: 'forms-sample') do |f| %>
+  <div class="form-group row">
+    <label for="title" class="col-sm-3 col-form-label">Job Name</label>
+    <div class="col-sm-9">
+      <%= f.text_field :name, autofocus: true, :class=>"form-control", :placeholder=>"Enter a Job Name" %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :details %>
-    <%= form.text_area :details %>
+  <div class="form-group row">
+    <label for="active" class="col-3 col-form-label">Active</label>
+    <div class="col-9">
+      <%= f.check_box :active %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.check_box :active %>
+  <div class="form-group row">
+    <label for="details" class="col-sm-3 col-form-label">Job Type</label>
+    <div class="col-sm-9">
+      <%= f.collection_select(:job_type_id, JobType.all, :id, :title, {:prompt=>true}, {:class=>'form-control'}) %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+  <div class="form-group row">
+    <label for="details" class="col-sm-3 col-form-label">Details</label>
+    <div class="col-sm-9">
+      <%= f.text_area :details, :class=>"form-control", :placeholder=>"Enter Details if you have" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :job_type_id %>
-    <%= form.text_field :job_type_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= f.submit "Submit", :class=>'btn btn-success mr-2', data: { disable_with: "Please wait ..." } %>
+  <%= link_to 'Cancel', jobs_path, class: 'btn btn-light' %>
 <% end %>
