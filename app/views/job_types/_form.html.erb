@@ -3,6 +3,9 @@
     <label for="title" class="col-sm-3 col-form-label">Job Type Title</label>
     <div class="col-sm-9">
       <%= f.text_field :title, autofocus: true, :class=>"form-control", :placeholder=>"Enter a Job Type Title" %>
+      <% if @job_type.errors.messages[:title].present? %>
+        <span class="text-danger">Title <%= @job_type.errors.messages[:title][0] %> </span>
+      <% end %>
     </div>
   </div>
   <div class="form-group row">
@@ -15,6 +18,9 @@
     <label for="details" class="col-sm-3 col-form-label">Details</label>
     <div class="col-sm-9">
       <%= f.text_area :details, :class=>"form-control", :placeholder=>"Enter Details if you have" %>
+      <% if @job_type.errors.messages[:details].present? %>
+        <span class="text-danger">Details <%= @job_type.errors.messages[:details][0] %> </span>
+      <% end %>
     </div>
   </div>
   <%= f.submit "Submit", :class=>'btn btn-success mr-2', data: { disable_with: "Please wait ..." } %>

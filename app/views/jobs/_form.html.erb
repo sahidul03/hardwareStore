@@ -1,8 +1,11 @@
 <%= form_with(model: job, local: true, class: 'forms-sample') do |f| %>
   <div class="form-group row">
-    <label for="title" class="col-sm-3 col-form-label">Job Name</label>
+    <label for="name" class="col-sm-3 col-form-label">Job Name</label>
     <div class="col-sm-9">
       <%= f.text_field :name, autofocus: true, :class=>"form-control", :placeholder=>"Enter a Job Name" %>
+      <% if @job.errors.messages[:name].present? %>
+        <span class="text-danger">Job name <%= @job.errors.messages[:name][0] %> </span>
+      <% end %>
     </div>
   </div>
   <div class="form-group row">
@@ -15,12 +18,36 @@
     <label for="details" class="col-sm-3 col-form-label">Job Type</label>
     <div class="col-sm-9">
       <%= f.collection_select(:job_type_id, JobType.all, :id, :title, {:prompt=>true}, {:class=>'form-control'}) %>
+      <% if @job.errors.messages[:job_type_id].present? %>
+      <span class="text-danger">Job type <%= @job.errors.messages[:job_type_id][0] %> </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="price" class="col-sm-3 col-form-label">Price</label>
+    <div class="col-sm-9">
+      <%= f.number_field :price, autofocus: true, :class=>"form-control", :placeholder=>"Enter price" %>
+      <% if @job.errors.messages[:price].present? %>
+        <span class="text-danger">Price <%= @job.errors.messages[:price][0] %> </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="name" class="col-sm-3 col-form-label">Discount</label>
+    <div class="col-sm-9">
+      <%= f.number_field :discount, autofocus: true, :class=>"form-control", :placeholder=>"Enter discount" %>
+      <% if @job.errors.messages[:discount].present? %>
+        <span class="text-danger">Discount <%= @job.errors.messages[:discount][0] %> </span>
+      <% end %>
     </div>
   </div>
   <div class="form-group row">
     <label for="details" class="col-sm-3 col-form-label">Details</label>
     <div class="col-sm-9">
       <%= f.text_area :details, :class=>"form-control", :placeholder=>"Enter Details if you have" %>
+      <% if @job.errors.messages[:details].present? %>
+      <span class="text-danger">Details <%= @job.errors.messages[:details][0] %> </span>
+      <% end %>
     </div>
   </div>
   <%= f.submit "Submit", :class=>'btn btn-success mr-2', data: { disable_with: "Please wait ..." } %>
