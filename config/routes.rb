@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :customers
   resources :jobs
   resources :job_types
   devise_for :users, controllers: { :sessions => "sessions", :registrations => "registrations" }

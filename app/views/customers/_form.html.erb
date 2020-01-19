@@ -1,0 +1,31 @@
+<%= form_with(model: customer, local: true, class: 'forms-sample') do |f| %>
+  <div class="form-group row">
+    <label for="title" class="col-sm-3 col-form-label">Customer Name</label>
+    <div class="col-sm-9">
+      <%= f.text_field :name, autofocus: true, :class=>"form-control", :placeholder=>"Enter a Customer Name" %>
+      <% if @customer.errors.messages[:name].present? %>
+        <span class="text-danger">Customer name <%= @customer.errors.messages[:name][0] %> </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="title" class="col-sm-3 col-form-label">Customer Phone</label>
+    <div class="col-sm-9">
+      <%= f.text_field :phone, autofocus: true, :class=>"form-control", :placeholder=>"Enter a Customer Phone" %>
+      <% if @customer.errors.messages[:phone].present? %>
+        <span class="text-danger">Customer phone <%= @customer.errors.messages[:phone][0] %> </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="details" class="col-sm-3 col-form-label">Address</label>
+    <div class="col-sm-9">
+      <%= f.text_area :address, :class=>"form-control", :placeholder=>"Enter Address" %>
+      <% if @customer.errors.messages[:address].present? %>
+        <span class="text-danger">Address <%= @customer.errors.messages[:address][0] %> </span>
+      <% end %>
+    </div>
+  </div>
+  <%= f.submit "Submit", :class=>'btn btn-success mr-2', data: { disable_with: "Please wait ..." } %>
+  <%= link_to 'Cancel', customers_path, class: 'btn btn-light' %>
+<% end %>

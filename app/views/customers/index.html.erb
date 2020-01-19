@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-header">
+          <span class="display-4 text-primary">Cusomers</span>
+          <%= link_to 'Add New Customer', new_customer_path, class: 'btn btn-primary pull-right' %>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th style="max-width: 25%">Address</th>
+              <th>Created By</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+              <%- user = customer.user %>
+              <tr>
+                <td><%= customer.name %></td>
+                <td><%= customer.phone %></td>
+                <td><%= customer.address %></td>
+                <td class="text-primary" data-toggle="tooltip" data-placement="top" title="<%= user.name %>"> <%= user.email %> </td>
+                <td> <%= customer.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
+                <td>
+                  <%= link_to edit_customer_path(customer), class: 'btn btn-outline-primary' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_074924) do
+ActiveRecord::Schema.define(version: 2020_01_19_063643) do
+
+  create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.text "address"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
+  end
 
   create_table "job_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -50,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_074924) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "customers", "users"
   add_foreign_key "job_types", "users"
   add_foreign_key "jobs", "job_types"
   add_foreign_key "jobs", "users"
