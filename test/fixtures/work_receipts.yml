@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  car_no: MyString
+  comment: MyText
+  job: one
+  user: one
+  customer: one
+  total: 1.5
+  discount: 1.5
+
+two:
+  car_no: MyString
+  comment: MyText
+  job: two
+  user: two
+  customer: two
+  total: 1.5
+  discount: 1.5

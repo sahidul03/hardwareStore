@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :job_types
   has_many :jobs
   has_many :customers
+  has_many :work_receipts
 end

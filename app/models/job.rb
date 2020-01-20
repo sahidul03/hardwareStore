@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
   belongs_to :user
   belongs_to :job_type
+  has_many :receipt_items
 
   validates :name, presence: true
   validates :job_type_id, presence: true

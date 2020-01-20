@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Job:</strong>
+  <%= @receipt_item.job_id %>
+</p>
+
+<p>
+  <strong>Work receipt:</strong>
+  <%= @receipt_item.work_receipt_id %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @receipt_item.total %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @receipt_item.quantity %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @receipt_item.unit_price %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_item_path(@receipt_item) %> |
+<%= link_to 'Back', receipt_items_path %>

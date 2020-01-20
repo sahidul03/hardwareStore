@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Car no:</strong>
+  <%= @work_receipt.car_no %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @work_receipt.comment %>
+</p>
+
+<p>
+  <strong>Job:</strong>
+  <%= @work_receipt.job_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @work_receipt.user_id %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @work_receipt.customer_id %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @work_receipt.total %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @work_receipt.discount %>
+</p>
+
+<%= link_to 'Edit', edit_work_receipt_path(@work_receipt) %> |
+<%= link_to 'Back', work_receipts_path %>

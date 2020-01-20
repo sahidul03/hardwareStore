@@ -9,6 +9,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th>Job ID</th>
               <th>Name</th>
               <th style="max-width: 25%">Details</th>
               <th>Status</th>
@@ -22,6 +23,9 @@
             <% @jobs.each do |job| %>
               <%- user = job.user %>
               <tr>
+                <td class="text-success">
+                  <%= job.id %>
+                </td>
                 <td><%= job.name %></td>
                 <td><%= job.details %></td>
                 <td>

@@ -11,5 +11,7 @@ class CreateJobs < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    # ID start from 100
+    execute "ALTER TABLE jobs AUTO_INCREMENT = 100"
   end
 end

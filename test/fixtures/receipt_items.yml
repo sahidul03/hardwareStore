@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job: one
+  work_receipt: one
+  total: 1.5
+  quantity: 1
+  unit_price: 1.5
+
+two:
+  job: two
+  work_receipt: two
+  total: 1.5
+  quantity: 1
+  unit_price: 1.5

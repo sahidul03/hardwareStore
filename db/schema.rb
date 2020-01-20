@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_19_063643) do
+ActiveRecord::Schema.define(version: 2020_01_20_130601) do
 
   create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(version: 2020_01_19_063643) do
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
+  create_table "receipt_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "work_receipt_id", null: false
+    t.float "total"
+    t.integer "quantity"
+    t.float "unit_price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_id"], name: "index_receipt_items_on_job_id"
+    t.index ["work_receipt_id"], name: "index_receipt_items_on_work_receipt_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -60,8 +72,25 @@ ActiveRecord::Schema.define(version: 2020_01_19_063643) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "work_receipts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "car_no"
+    t.text "comment"
+    t.bigint "user_id", null: false
+    t.bigint "customer_id", null: false
+    t.float "total"
+    t.float "discount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_work_receipts_on_customer_id"
+    t.index ["user_id"], name: "index_work_receipts_on_user_id"
+  end
+
   add_foreign_key "customers", "users"
   add_foreign_key "job_types", "users"
   add_foreign_key "jobs", "job_types"
   add_foreign_key "jobs", "users"
+  add_foreign_key "receipt_items", "jobs"
+  add_foreign_key "receipt_items", "work_receipts"
+  add_foreign_key "work_receipts", "customers"
+  add_foreign_key "work_receipts", "users"
 end

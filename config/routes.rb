@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :receipt_items
+  resources :work_receipts
   resources :customers
   resources :jobs
   resources :job_types
