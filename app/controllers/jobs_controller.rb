@@ -15,11 +15,13 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
+    @job_types = redisList('job_types')
     @job = Job.new
   end
 
   # GET /jobs/1/edit
   def edit
+    @job_types = redisList('job_types')
   end
 
   # POST /jobs
@@ -29,6 +31,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
+        insertToRedisList('jobs', @job)
         format.html { redirect_to jobs_url, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
@@ -43,6 +46,7 @@ class JobsController < ApplicationController
   def update
     respond_to do |format|
       if @job.update(job_params)
+        updateRedisList('jobs', @job)
         format.html { redirect_to jobs_url, notice: 'Job was successfully updated.' }
         format.json { render :show, status: :ok, location: @job }
       else

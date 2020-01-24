@@ -11,6 +11,6 @@ class CreateWorkReceipts < ActiveRecord::Migration[6.0]
       t.timestamps
     end
     # ID start from 100
-    execute "ALTER TABLE jobs AUTO_INCREMENT = 100"
+    execute "ALTER TABLE work_receipts AUTO_INCREMENT = 100"
   end
 end

@@ -29,6 +29,7 @@ class JobTypesController < ApplicationController
 
     respond_to do |format|
       if @job_type.save
+        insertToRedisList('job_types', @job_type)
         format.html { redirect_to job_types_url , notice: 'Job type was successfully created.' }
         format.json { render :show, status: :created, location: @job_type }
       else
@@ -43,6 +44,7 @@ class JobTypesController < ApplicationController
   def update
     respond_to do |format|
       if @job_type.update(job_type_params)
+        updateRedisList('job_types', @job_type)
         format.html { redirect_to job_types_url, notice: 'Job type was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_type }
       else
