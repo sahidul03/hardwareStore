@@ -14,7 +14,8 @@ class WorkReceiptsController < ApplicationController
 
   # GET /work_receipts/new
   def new
-    @work_receipt = WorkReceipt.new
+    # @work_receipt = WorkReceipt.new
+    @jobs = redisList('jobs')
   end
 
   # GET /work_receipts/1/edit
