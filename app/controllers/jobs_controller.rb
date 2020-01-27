@@ -15,12 +15,13 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    @job_types = redisList('job_types')
+    get_job_types
     @job = Job.new
   end
 
   # GET /jobs/1/edit
   def edit
+    get_job_types
     @job_types = redisList('job_types')
   end
 
@@ -35,6 +36,7 @@ class JobsController < ApplicationController
         format.html { redirect_to jobs_url, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
+        get_job_types
         format.html { render :new }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
@@ -50,6 +52,7 @@ class JobsController < ApplicationController
         format.html { redirect_to jobs_url, notice: 'Job was successfully updated.' }
         format.json { render :show, status: :ok, location: @job }
       else
+        get_job_types
         format.html { render :edit }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
@@ -75,5 +78,9 @@ class JobsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
       params.require(:job).permit(:name, :details, :active, :job_type_id, :price, :discount).merge(user_id: current_user.id)
+    end
+
+    def get_job_types
+      @job_types = redisList('job_types')
     end
 end

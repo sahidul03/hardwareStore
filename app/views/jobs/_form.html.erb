@@ -17,7 +17,9 @@
   <div class="form-group row">
     <label for="details" class="col-sm-3 col-form-label">Job Type</label>
     <div class="col-sm-9">
-      <%= f.collection_select(:job_type_id, JobType.all, :id, :title, {:prompt=>true}, {:class=>'form-control'}) %>
+      <%= select(:job, :job_type_id, @job_types.select{|item| item['active']}.map {|item| [ item['title'], item['id'] ] },  {}, {:class => 'form-control'}) %>
+
+      <%#= f.collection_select(:job_type_id, JobType.all, :id, :title, {:prompt=>true}, {:class=>'form-control'}) %>
       <% if @job.errors.messages[:job_type_id].present? %>
       <span class="text-danger">Job type <%= @job.errors.messages[:job_type_id][0] %> </span>
       <% end %>
