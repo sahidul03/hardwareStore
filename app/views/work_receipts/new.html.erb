@@ -7,36 +7,7 @@
             <span class="display-4 text-primary">Make a payment</span>
           </div>
           <div class="card-body">
-            <div class="row">
-                <div class="col-8">Body</div>
-                <div class="col-4">
-                    <h2>Jobs List</h2>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Job ID</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <% @jobs.each do |job| %>
-                            <tr>
-                            <td class="text-success">
-                                <%= job['id'] %>
-                            </td>
-                            <td><%= job['name'] %></td>
-                            <td><%= job_price(job['price'], job['discount']) %></td>
-                            <td>
-                                <span class="btn btn-primary">Add</span>
-                            </td>
-                            </tr>
-                        <% end %>
-                        </tbody>
-                  </table>
-                </div>
-            </div>
+            <%= react_component("NewPayment", { jobs: @jobs }) %>
           </div>
         </div>
       </div>

@@ -41,4 +41,7 @@ import "./dashboard"
 // require("js/shared/chart")
 // require("js/shared/misc")
 // require("js/shared/off-canvas")
-// require("js/demo_1/dashboard")
+// require("js/demo_1/dashboard")// Support component names relative to this directory:
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
