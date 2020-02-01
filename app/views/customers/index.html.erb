@@ -4,7 +4,8 @@
       <div class="card-body">
         <div class="card-header">
           <span class="display-4 text-primary">Cusomers</span>
-          <%= link_to 'Add New Customer', new_customer_path, class: 'btn btn-primary pull-right' %>
+          <input type="button" id="search_button" class="btn btn-primary pull-right" value="Search">
+          <input type="search" id="search_by_phone" class="pull-right search-field onlyPositiveInteger" value="<%= params[:phone] %>" placeholder="Search by Mobile Number">
         </div>
         <table class="table table-hover">
           <thead>
@@ -35,7 +36,27 @@
             <% end %>
           </tbody>
         </table>
+        <%= paginate @customers %>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+
+    $('#body_layer').on("keypress", "#search_by_phone", function(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode == 13 && $("#search_by_phone").val()) {
+        window.location.href = 'customers?phone=' + $("#search_by_phone").val();
+      }
+    });
+
+    $('#body_layer').on("click", "#search_button", function(evt) {
+      if ($("#search_by_phone").val()) {
+        window.location.href = 'customers?phone=' + $("#search_by_phone").val();
+      }
+    });
+
+  });
+</script>

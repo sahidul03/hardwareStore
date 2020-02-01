@@ -24,6 +24,7 @@ gem 'redis', '~> 4.0'
 gem 'devise'
 
 gem 'react-rails'
+gem 'kaminari'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

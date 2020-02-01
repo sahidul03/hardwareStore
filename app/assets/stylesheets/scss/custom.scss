@@ -7,3 +7,15 @@
 .bg-light-gray {
     background-color: #dfebf3;
 }
+.search-field {
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 5px 12px 5px 12px;
+    font-size: 13px;
+    min-width: 250px;
+}
+.search-field:focus {
+    border: 1px solid #7cb3ef;
+}

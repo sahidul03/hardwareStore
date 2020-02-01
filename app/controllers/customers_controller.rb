@@ -4,7 +4,11 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.includes(:user).all
+    if params[:phone]
+      @customers = Customer.includes(:user).where("phone LIKE '%#{params[:phone]}%'").page(params[:page]).per(4)
+    else
+      @customers = Customer.includes(:user).all.page(params[:page]).per(4)
+    end
   end
 
   # GET /customers/1

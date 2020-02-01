@@ -14,11 +14,22 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to(customers_path, class: "nav-link") do %>
-        <i class="menu-icon typcn typcn-document-text"></i>
+      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <i class="menu-icon typcn typcn-coffee"></i>
         <span class="menu-title">Customers</span>
-      <% end %>
-    </li>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="ui-basic">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <%= link_to 'New Customer', new_customer_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Customers', customers_path, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+  </li>
     <li class="nav-item">
       <%= link_to(work_receipts_path, class: "nav-link") do %>
         <i class="menu-icon typcn typcn-document-text"></i>
