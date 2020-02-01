@@ -8,7 +8,8 @@ class NewPayment extends React.Component {
       selectedJobs: [],
       discount: 0,
       carNo: '',
-      discount: ''
+      discount: '',
+      submitted: false,
     };
   }
 
@@ -60,6 +61,17 @@ class NewPayment extends React.Component {
     }
   }
 
+  createPayment() {
+    this.state.submitted = true;
+    if (this.state.selectedJobs.length > 0) {
+      if (this.state.carNo) {
+      } else {
+        alert("Car no can't be blank.");
+      }
+
+    }
+  }
+
   totalPrice() {
     return this.state.selectedJobs.reduce((sum, item) => { return (sum + (item.quantity * item.price)); }, 0);
   }
@@ -81,6 +93,7 @@ class NewPayment extends React.Component {
       <React.Fragment>
         <div className="row">
                 <div className="col-8">
+                  {this.state.selectedJobs.length > 0 ?
                   <table className="table table-hover">
                         <thead>
                         <tr>
@@ -96,15 +109,15 @@ class NewPayment extends React.Component {
                             <tr key={ job.id }>
                               <td className="text-success">
                                 <div className="text-center">{job.id}</div><br/>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                  <button onClick={() => this.addJob(job)} type="button" class="btn btn-outline-secondary">
-                                    <i class="mdi mdi-plus"></i>
+                                <div className="btn-group" role="group" aria-label="Basic example">
+                                  <button onClick={() => this.addJob(job)} type="button" className="btn btn-outline-secondary">
+                                    <i className="mdi mdi-plus"></i>
                                   </button>
-                                  <button onClick={() => this.decreaseJob(job)} type="button" class="btn btn-outline-secondary">
-                                    <i class="mdi mdi-minus"></i>
+                                  <button onClick={() => this.decreaseJob(job)} type="button" className="btn btn-outline-secondary">
+                                    <i className="mdi mdi-minus"></i>
                                   </button>
-                                  <button onClick={() => this.removeJob(job)} type="button" class="btn btn-outline-secondary">
-                                    <i class="mdi mdi-close-box"></i>
+                                  <button onClick={() => this.removeJob(job)} type="button" className="btn btn-outline-secondary">
+                                    <i className="mdi mdi-close-box"></i>
                                   </button>
                                 </div>
                               </td>
@@ -176,8 +189,15 @@ class NewPayment extends React.Component {
                             <th className="text-center" scope="col" colSpan="2">Total Amount</th>
                             <th className="text-right" scope="col">{ this.totalPrice() + this.totalPrice()*0.10 - this.state.discount }</th>
                           </tr>
+                          <tr>
+                            <th className="text-right" scope="col" colSpan="5">
+                              <button type="button" onClick={() => this.createPayment()} className="btn btn-primary btn-fw">Create Payment</button>
+                            </th>
+                          </tr>
                         </tfoot>
                   </table>
+                  : <h4 className="text-center">Please select JOB first</h4>
+                  }
                 </div>
                 <div className="col-4 left-border">
                     <h2>Jobs List</h2>
