@@ -7,6 +7,11 @@ class WorkReceiptsController < ApplicationController
     @work_receipts = WorkReceipt.all
   end
 
+  def payment
+    @customer = Customer.find(params[:id])
+    @jobs = redisList('jobs')
+  end
+
   # GET /work_receipts/1
   # GET /work_receipts/1.json
   def show

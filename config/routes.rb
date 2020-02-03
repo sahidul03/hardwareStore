@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :receipt_items
-  resources :work_receipts
+  resources :work_receipts do
+    member do
+      get :payment
+    end
+  end
   resources :customers
   resources :jobs
   resources :job_types

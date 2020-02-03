@@ -28,9 +28,17 @@
                 <td class="text-primary" data-toggle="tooltip" data-placement="top" title="<%= user.name %>"> <%= user.email %> </td>
                 <td> <%= customer.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
                 <td>
-                  <%= link_to edit_customer_path(customer), class: 'btn btn-outline-primary' do %>
-                    <i class="fa fa-edit"></i>
-                  <% end %>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <%= link_to edit_customer_path(customer), class: 'btn btn-outline-primary', title: 'Edit Customer' do %>
+                      <i class="mdi mdi-account-edit"></i>
+                    <% end %>
+                    <%= link_to payment_work_receipt_path(customer.id), class: 'btn btn-outline-primary', title: 'Make Payment' do %>
+                      <i class="mdi mdi-credit-card-plus"></i>
+                    <% end %>
+                    <button type="button" class="btn btn-outline-primary" title="History">
+                      <i class="mdi mdi-history"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             <% end %>

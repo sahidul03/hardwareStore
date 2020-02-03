@@ -6,24 +6,11 @@ class NewPayment extends React.Component {
     super(props);
     this.state = {
       selectedJobs: [],
-      discount: 0,
-      carNo: '',
       discount: '',
+      payment: '',
+      carNo: '',
       submitted: false,
     };
-  }
-
-  addJob(job) {
-    const selectedJobs = this.state.selectedJobs;
-    const index = selectedJobs.findIndex(item => item.id ===job.id);
-    if (index > -1) {
-      const existJob = selectedJobs[index];
-      existJob.quantity += 1; 
-      selectedJobs[index] = existJob;
-    } else {
-      selectedJobs.push({ quantity: 1, id: job.id, price: (job.price-job.discount), name: job.name });
-    }
-    this.setState({selectedJobs});
   }
 
   addJob(job) {
@@ -65,6 +52,15 @@ class NewPayment extends React.Component {
     this.state.submitted = true;
     if (this.state.selectedJobs.length > 0) {
       if (this.state.carNo) {
+        if ((this.totalPrice() + this.totalPrice()*0.10) - this.state.discount >= 0) {
+          if ((this.totalPrice() + this.totalPrice()*0.10 - this.state.discount) - this.state.payment >= 0) {
+
+          } else {
+            alert("Payment can't be greater than total amount.");
+          }
+        } else {
+          alert("Discount can't be greater than total amount.");
+        }
       } else {
         alert("Car no can't be blank.");
       }
@@ -78,6 +74,9 @@ class NewPayment extends React.Component {
 
   handleDiscountChange = event => {
     this.setState({ discount: event.target.value });
+  };
+  handlePaymentChange = event => {
+    this.setState({ payment: event.target.value });
   };
 
   handleCarNoChange = event => {
@@ -160,8 +159,14 @@ class NewPayment extends React.Component {
                             </th>
                           </tr>
                           <tr>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col" colSpan="2">
+                            <textarea
+                                className="form-control"
+                                type="text"
+                                placeholder="Comment"
+                                value={this.state.comment}
+                                onChange={this.handleCommentChange}></textarea>
+                            </th>
                             <th className="text-center" scope="col" colSpan="2">Car No</th>
                             <th className="text-right" scope="col">
                               <input
@@ -188,6 +193,24 @@ class NewPayment extends React.Component {
                             <th scope="col"></th>
                             <th className="text-center" scope="col" colSpan="2">Total Amount</th>
                             <th className="text-right" scope="col">{ this.totalPrice() + this.totalPrice()*0.10 - this.state.discount }</th>
+                          </tr>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th className="text-center" scope="col" colSpan="2">Payment</th>
+                            <th className="text-right" scope="col">
+                              <input
+                                className="form-control font-weight-bold text-right onlyPositiveInteger"
+                                type="text"
+                                value={this.state.payment}
+                                onChange={this.handlePaymentChange}/>
+                            </th>
+                          </tr>
+                          <tr className="bg-light-gray">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th className="text-center" scope="col" colSpan="2">Due</th>
+                            <th className="text-right" scope="col">{ this.totalPrice() + this.totalPrice()*0.10 - this.state.discount - this.state.payment}</th>
                           </tr>
                           <tr>
                             <th className="text-right" scope="col" colSpan="5">
