@@ -1,4 +1,5 @@
 class ReceiptItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_receipt_item, only: [:show, :edit, :update, :destroy]
 
   # GET /receipt_items

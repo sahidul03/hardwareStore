@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_130601) do
+ActiveRecord::Schema.define(version: 2020_02_05_122134) do
 
   create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 2020_01_20_130601) do
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "work_receipt_id", null: false
+    t.float "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["work_receipt_id"], name: "index_payments_on_work_receipt_id"
+  end
+
   create_table "receipt_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "job_id", null: false
     t.bigint "work_receipt_id", null: false
@@ -79,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_01_20_130601) do
     t.bigint "customer_id", null: false
     t.float "total"
     t.float "discount"
+    t.float "due"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_work_receipts_on_customer_id"
@@ -89,6 +98,7 @@ ActiveRecord::Schema.define(version: 2020_01_20_130601) do
   add_foreign_key "job_types", "users"
   add_foreign_key "jobs", "job_types"
   add_foreign_key "jobs", "users"
+  add_foreign_key "payments", "work_receipts"
   add_foreign_key "receipt_items", "jobs"
   add_foreign_key "receipt_items", "work_receipts"
   add_foreign_key "work_receipts", "customers"

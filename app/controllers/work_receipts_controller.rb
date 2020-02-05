@@ -1,5 +1,7 @@
 class WorkReceiptsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_work_receipt, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, :only => [:create, :update]
 
   # GET /work_receipts
   # GET /work_receipts.json
@@ -31,13 +33,12 @@ class WorkReceiptsController < ApplicationController
   # POST /work_receipts.json
   def create
     @work_receipt = WorkReceipt.new(work_receipt_params)
-
     respond_to do |format|
       if @work_receipt.save
-        format.html { redirect_to @work_receipt, notice: 'Work receipt was successfully created.' }
-        format.json { render :show, status: :created, location: @work_receipt }
+        payment = Payment.create(work_receipt_id: @work_receipt.id, amount: params[:payment])
+        params[:jobs].each { |job|  ReceiptItem.create(unit_price: job[:price], job_id: job[:id], quantity: job[:quantity], total: job[:price] * job[:quantity], work_receipt_id: @work_receipt.id)}
+        format.json { render json: @work_receipt, status: :created }
       else
-        format.html { render :new }
         format.json { render json: @work_receipt.errors, status: :unprocessable_entity }
       end
     end
@@ -75,6 +76,6 @@ class WorkReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_receipt_params
-      params.require(:work_receipt).permit(:car_no, :comment, :user_id, :customer_id, :total, :discount)
+      params.require(:work_receipt).permit(:car_no, :comment, :customer_id, :total, :discount, :due).merge(user_id: current_user.id)
     end
 end

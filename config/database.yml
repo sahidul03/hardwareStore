@@ -6,7 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: hardwareShop
+  database: hardwareShopDevelopment
   username: root
   password: sahidul
 
@@ -15,12 +15,12 @@ development:
   # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: hardwareShop
+  database: hardwareShopTest
   username: root
   password: sahidul
 
 production:
   <<: *default
-  database: hardwareShop
+  database: hardwareShopProd
   username: root
   password: sahidul

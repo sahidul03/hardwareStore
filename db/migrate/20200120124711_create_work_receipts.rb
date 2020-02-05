@@ -7,6 +7,7 @@ class CreateWorkReceipts < ActiveRecord::Migration[6.0]
       t.references :customer, null: false, foreign_key: true
       t.float :total
       t.float :discount
+      t.float :due
 
       t.timestamps
     end

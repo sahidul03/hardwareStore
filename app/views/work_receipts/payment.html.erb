@@ -8,7 +8,7 @@
             <span class="display-4 pull-right">Mobile: <span class="text-primary"><%= @customer.phone %></span></span>
           </div>
           <div class="card-body">
-            <%= react_component("NewPayment", { jobs: @jobs, customer: @custoer }) %>
+            <%= react_component("NewPayment", { jobs: @jobs, customer: @customer }) %>
           </div>
         </div>
       </div>

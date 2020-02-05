@@ -6,8 +6,8 @@ class NewPayment extends React.Component {
     super(props);
     this.state = {
       selectedJobs: [],
-      discount: '',
-      payment: '',
+      discount: 0,
+      payment: 0,
       carNo: '',
       submitted: false,
     };
@@ -48,13 +48,35 @@ class NewPayment extends React.Component {
     }
   }
 
+  sendPostCall() {
+    fetch('/work_receipts', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jobs: this.state.selectedJobs,
+        work_receipt: {
+          discount: this.state.discount,
+          comment: this.state.comment,
+          car_no: this.state.carNo,
+          customer_id: this.props.customer.id,
+          total: this.totalPrice() + this.totalPrice()*0.10,
+          due: this.totalPrice() + this.totalPrice()*0.10 - this.state.discount - this.state.payment
+        },
+        payment: this.state.payment,
+      }),
+    });
+  }
+
   createPayment() {
     this.state.submitted = true;
     if (this.state.selectedJobs.length > 0) {
       if (this.state.carNo) {
         if ((this.totalPrice() + this.totalPrice()*0.10) - this.state.discount >= 0) {
           if ((this.totalPrice() + this.totalPrice()*0.10 - this.state.discount) - this.state.payment >= 0) {
-
+            this.sendPostCall();
           } else {
             alert("Payment can't be greater than total amount.");
           }
@@ -174,18 +196,6 @@ class NewPayment extends React.Component {
                                 type="text"
                                 value={this.state.carNo}
                                 onChange={this.handleCarNoChange}/>
-                            </th>
-                          </tr>
-                          <tr>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th className="text-center" scope="col" colSpan="2">Comment</th>
-                            <th className="text-right" scope="col">
-                              <textarea
-                                className="form-control"
-                                type="text"
-                                value={this.state.comment}
-                                onChange={this.handleCommentChange}></textarea>
                             </th>
                           </tr>
                           <tr className="bg-light-gray">
