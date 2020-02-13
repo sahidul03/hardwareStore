@@ -6,9 +6,9 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     if params[:phone]
-      @customers = Customer.includes(:user).where("phone LIKE '%#{params[:phone]}%'").page(params[:page]).per(4)
+      @customers = Customer.includes(:user).where("phone LIKE '%#{params[:phone]}%'").page(params[:page])
     else
-      @customers = Customer.includes(:user).all.page(params[:page]).per(4)
+      @customers = Customer.includes(:user).all.page(params[:page])
     end
   end
 
