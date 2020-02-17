@@ -46,7 +46,7 @@
                 <td>
                   <label class="badge badge-<%= (receipt.due || 0) > 0 ? 'danger' : 'success' %>"><%= receipt.due %></label>
                 </td>
-                <td><%= receipt.total - (receipt.due || 0) %></td>
+                <td><%= receipt.paid_amount %></td>
                 <td><%= receipt.total %></td>
                 <td> <%= receipt.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
                 <td>
