@@ -1,5 +1,9 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react';
+import PropTypes from 'prop-types';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 class NewPayment extends React.Component {
   
   constructor(props) {
@@ -9,8 +13,20 @@ class NewPayment extends React.Component {
       discount: 0,
       payment: 0,
       carNo: '',
-      submitted: false,
+      paymentSubmitted: false,
+      modalShow: false,
+      paymentConfirmationModalShow: false,
+      errorMessage: '',
+      showSuccessMessage: false
     };
+  }
+
+  hideModal() {
+    this.setState({ modalShow: false })
+  }
+
+  hidePaymentConfirmationModal() {
+    this.setState({ paymentConfirmationModalShow: false })
   }
 
   addJob(job) {
@@ -67,24 +83,40 @@ class NewPayment extends React.Component {
         },
         payment: this.state.payment,
       }),
+    }).then((response) => response.json())
+    .then((responseJson) => { 
+        if (responseJson.id) {
+          this.setState({ paymentSubmitted: false, paymentConfirmationModalShow: false, showSuccessMessage: true });
+        }
+    })
+    .catch((error) => {
+      console.error(error); 
     });
   }
 
+  confirmPayment() {
+    this.setState({ paymentSubmitted: true });
+    this.sendPostCall();
+  }
+
   createPayment() {
-    this.state.submitted = true;
     if (this.state.selectedJobs.length > 0) {
       if (this.state.carNo) {
         if ((this.totalPrice() + this.totalPrice()*0.10) - this.state.discount >= 0) {
           if ((this.totalPrice() + this.totalPrice()*0.10 - this.state.discount) - this.state.payment >= 0) {
-            this.sendPostCall();
+            if (this.state.payment >= 1) {
+              this.setState({ paymentConfirmationModalShow: true })
+            } else {
+              this.setState({ errorMessage: "Payment can't be less than 1.", modalShow: true });
+            }
           } else {
-            alert("Payment can't be greater than total amount.");
+            this.setState({ errorMessage: "Payment can't be greater than total amount.", modalShow: true });
           }
         } else {
-          alert("Discount can't be greater than total amount.");
+          this.setState({ errorMessage: "Discount can't be greater than total amount.", modalShow: true });
         }
       } else {
-        alert("Car no can't be blank.");
+        this.setState({ errorMessage: "Car no can't be blank.", modalShow: true });
       }
 
     }
@@ -114,6 +146,9 @@ class NewPayment extends React.Component {
       <React.Fragment>
         <div className="row">
                 <div className="col-8">
+                  <Alert variant="success" show={this.state.showSuccessMessage}>
+                    <Alert.Heading>Payment has been made successfully.</Alert.Heading>
+                  </Alert>
                   {this.state.selectedJobs.length > 0 ?
                   <table className="table table-hover">
                         <thead>
@@ -256,6 +291,39 @@ class NewPayment extends React.Component {
                           ))}
                         </tbody>
                   </table>
+                  <Modal show={this.state.modalShow} backdrop="static" onHide={() => this.hideModal()}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Wrong Input</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body><span className="text-danger">{this.state.errorMessage}</span></Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="danger" onClick={() => this.hideModal()}>
+                        Close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal show={this.state.paymentConfirmationModalShow} backdrop="static" onHide={() => this.hidePaymentConfirmationModal()}>
+                    <Modal.Header>
+                      <Modal.Title className="text-primary">Payment Confirmation</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      {
+                        this.state.paymentSubmitted ?
+                          <div><span className="h5">We're making payment for you. Please wait ...</span><Spinner className="pull-right" animation="border" variant="success" /></div> : <h4>Are you sure! You want to make payment?</h4>
+                      }
+                    </Modal.Body>
+                    {
+                        this.state.paymentSubmitted ? null :
+                        <Modal.Footer>
+                          <Button variant="secondary" onClick={() => this.hidePaymentConfirmationModal()}>
+                            No
+                          </Button>
+                          <Button variant="primary" onClick={() => this.confirmPayment()}>
+                            Yes
+                          </Button>
+                        </Modal.Footer>
+                    }
+                  </Modal>
                 </div>
             </div>
       </React.Fragment>
