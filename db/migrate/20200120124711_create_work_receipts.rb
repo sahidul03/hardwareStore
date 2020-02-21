@@ -8,6 +8,7 @@ class CreateWorkReceipts < ActiveRecord::Migration[6.0]
       t.float :total
       t.float :discount
       t.float :due
+      t.float :vat
 
       t.timestamps
     end

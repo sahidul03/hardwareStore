@@ -87,6 +87,7 @@ class NewPayment extends React.Component {
           comment: this.state.comment,
           car_no: this.state.carNo,
           customer_id: this.props.customer.id,
+          vat: this.totalPrice()*0.10,
           total: this.totalPrice() + this.totalPrice()*0.10,
           due: this.totalPrice() + this.totalPrice()*0.10 - this.state.discount - this.state.payment
         },
@@ -96,6 +97,7 @@ class NewPayment extends React.Component {
     .then((responseJson) => { 
         if (responseJson.id) {
           this.setState({ selectedJobs: [], paymentSubmitted: false, paymentConfirmationModalShow: false, showToastMessage: true });
+          window.location = "/work_receipts/" + responseJson.id;
         }
     })
     .catch((error) => {

@@ -88,6 +88,6 @@ class WorkReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_receipt_params
-      params.require(:work_receipt).permit(:car_no, :comment, :customer_id, :total, :discount, :due).merge(user_id: current_user.id)
+      params.require(:work_receipt).permit(:car_no, :comment, :customer_id, :total, :discount, :due, :vat).merge(user_id: current_user.id)
     end
 end

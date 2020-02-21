@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_02_05_122134) do
     t.float "total"
     t.float "discount"
     t.float "due"
+    t.float "vat"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_work_receipts_on_customer_id"
