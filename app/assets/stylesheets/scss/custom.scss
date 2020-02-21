@@ -7,6 +7,9 @@
 .bg-light-gray {
     background-color: #dfebf3;
 }
+.font-20 {
+    font-size: 20px;
+}
 .search-field {
     border: 1px solid #dadada;
     border-radius: 4px;
@@ -18,4 +21,12 @@
 }
 .search-field:focus {
     border: 1px solid #7cb3ef;
+}
+.position-relative {
+    position: relative;
+}
+.toast-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import Alert from 'react-bootstrap/Alert';
+import Toast from 'react-bootstrap/Toast';
+import ToastHeader from 'react-bootstrap/ToastHeader';
+import ToastBody from 'react-bootstrap/ToastBody';
+
+
 class NewPayment extends React.Component {
   
   constructor(props) {
@@ -17,8 +21,13 @@ class NewPayment extends React.Component {
       modalShow: false,
       paymentConfirmationModalShow: false,
       errorMessage: '',
-      showSuccessMessage: false
+      showSuccessMessage: false,
+      showToastMessage: false
     };
+  }
+
+  closeToastMessage(){
+    this.setState({ showToastMessage: false });
   }
 
   hideModal() {
@@ -86,7 +95,7 @@ class NewPayment extends React.Component {
     }).then((response) => response.json())
     .then((responseJson) => { 
         if (responseJson.id) {
-          this.setState({ paymentSubmitted: false, paymentConfirmationModalShow: false, showSuccessMessage: true });
+          this.setState({ selectedJobs: [], paymentSubmitted: false, paymentConfirmationModalShow: false, showToastMessage: true });
         }
     })
     .catch((error) => {
@@ -116,7 +125,7 @@ class NewPayment extends React.Component {
           this.setState({ errorMessage: "Discount can't be greater than total amount.", modalShow: true });
         }
       } else {
-        this.setState({ errorMessage: "Car no can't be blank.", modalShow: true });
+        this.setState({ errorMessage: "Car No can't be blank.", modalShow: true });
       }
 
     }
@@ -145,10 +154,7 @@ class NewPayment extends React.Component {
     return (
       <React.Fragment>
         <div className="row">
-                <div className="col-8">
-                  <Alert variant="success" show={this.state.showSuccessMessage}>
-                    <Alert.Heading>Payment has been made successfully.</Alert.Heading>
-                  </Alert>
+                <div id="invoicePart" className="col-8">
                   {this.state.selectedJobs.length > 0 ?
                   <table className="table table-hover">
                         <thead>
@@ -267,7 +273,7 @@ class NewPayment extends React.Component {
                   : <h4 className="text-center">Please select JOB first</h4>
                   }
                 </div>
-                <div className="col-4 left-border">
+                <div className="col-4 left-border position-relative">
                     <h2>Jobs List</h2>
                     <table className="table table-hover">
                         <thead>
@@ -324,6 +330,15 @@ class NewPayment extends React.Component {
                         </Modal.Footer>
                     }
                   </Modal>
+                  <div className="toast-container">
+                    <Toast onClose={() => this.closeToastMessage() } show={this.state.showToastMessage}  delay={3000} autohide>
+                      <Toast.Header>
+                        <i className="mdi mdi-check text-success mr-1 font-20"></i>
+                        <strong className="mr-auto text-success">Success</strong>
+                      </Toast.Header>
+                      <Toast.Body className="text-success">Payment has been made successfully.</Toast.Body>
+                    </Toast>
+                  </div>
                 </div>
             </div>
       </React.Fragment>
