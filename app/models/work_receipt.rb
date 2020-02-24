@@ -17,4 +17,16 @@ class WorkReceipt < ApplicationRecord
     total - due
   end
 
+  def paid_amount
+    total - due
+  end
+
+  def total_a
+    total - vat - discount
+  end
+
+  def total_b
+    total - discount
+  end
+
 end

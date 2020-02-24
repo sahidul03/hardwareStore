@@ -7,6 +7,9 @@
 .bg-light-gray {
     background-color: #dfebf3;
 }
+.bg-light-danger {
+    background-color: #ffc6c4 !important;
+}
 .font-20 {
     font-size: 20px;
 }
@@ -28,5 +31,5 @@
 .toast-container {
     position: absolute;
     bottom: 0;
-    right: 0;
+    left: 0;
 }

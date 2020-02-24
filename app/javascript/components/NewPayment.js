@@ -274,6 +274,15 @@ class NewPayment extends React.Component {
                   </table>
                   : <h4 className="text-center">Please select JOB first</h4>
                   }
+                  <div className="toast-container">
+                    <Toast onClose={() => this.closeToastMessage() } show={this.state.showToastMessage}  delay={3000} autohide>
+                      <Toast.Header>
+                        <i className="mdi mdi-check text-success mr-1 font-20"></i>
+                        <strong className="mr-auto text-success">Success</strong>
+                      </Toast.Header>
+                      <Toast.Body className="text-success">Payment has been made successfully.</Toast.Body>
+                    </Toast>
+                  </div>
                 </div>
                 <div className="col-4 left-border position-relative">
                     <h2>Jobs List</h2>
@@ -332,15 +341,6 @@ class NewPayment extends React.Component {
                         </Modal.Footer>
                     }
                   </Modal>
-                  <div className="toast-container">
-                    <Toast onClose={() => this.closeToastMessage() } show={this.state.showToastMessage}  delay={3000} autohide>
-                      <Toast.Header>
-                        <i className="mdi mdi-check text-success mr-1 font-20"></i>
-                        <strong className="mr-auto text-success">Success</strong>
-                      </Toast.Header>
-                      <Toast.Body className="text-success">Payment has been made successfully.</Toast.Body>
-                    </Toast>
-                  </div>
                 </div>
             </div>
       </React.Fragment>

@@ -1,6 +1,6 @@
 class WorkReceiptsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_work_receipt, only: [:show, :edit, :update, :destroy]
+  before_action :set_work_receipt, only: [:edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, :only => [:create, :update]
 
   # GET /work_receipts
@@ -29,6 +29,7 @@ class WorkReceiptsController < ApplicationController
   # GET /work_receipts/1
   # GET /work_receipts/1.json
   def show
+    @work_receipt = WorkReceipt.includes(:receipt_items, :customer, :payments).find(params[:id])
   end
 
   # GET /work_receipts/new

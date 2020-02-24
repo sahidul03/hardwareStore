@@ -1,34 +1,126 @@
-<p id="notice"><%= notice %></p>
+<div id="printReceipt" class="row">
+  <div class="col-md-12 d-flex align-items-stretch grid-margin">
+    <div class="row flex-grow">
+      <div class="col-12 stretch-card">
+        <div class="card">
+          <div class="card-header">
+            <span class="display-4">Customer Name: <span class="text-primary"><%= @work_receipt.customer.name %></span> </span>
+            <span class="display-4 pull-right">Mobile: <span class="text-primary"><%= @work_receipt.customer.phone %></span></span>
+          </div>
+          <div class="card-body">
+          <div class="row">
+            <div id="invoicePart" class="col-12">
+              <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Job ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @work_receipt.receipt_items.each do |item| %>
+                        <%- job = item.job %>
+                        <tr>
+                          <td class="text-success">
+                            <div class="text-center"><%= item.job_id %></div>
+                          </td>
+                          <td><%= job.name %></td>
+                          <td class="text-left"><%= item.unit_price %></td>
+                          <td class="text-center"><%= item.quantity %></td>
+                          <td class="text-right"><%= item.total %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bg-light-gray">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th class="text-center" scope="col" colSpan="2">Total A</th>
+                        <th class="text-right" scope="col"><%= @work_receipt.total_a %></th>
+                      </tr>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col" class="text-right" colSpan="2">10% VAT</th>
+                        <th class="text-right" scope="col"><%= @work_receipt.vat %></th>
+                      </tr>
+                      <tr class="bg-light-gray">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th class="text-center" scope="col" colSpan="2">Total B</th>
+                        <th class="text-right" scope="col"><%= @work_receipt.total_b %></th>
+                      </tr>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th class="text-center" scope="col" colSpan="2">Discount</th>
+                        <th class="text-right" scope="col"> <%= @work_receipt.discount %> </th>
+                      </tr>
+                      <tr>
+                        <th scope="col" colSpan="2">
+                          <%= @work_receipt.comment %>
+                        </th>
+                        <th class="text-center" scope="col" colSpan="2">Car No</th>
+                        <th class="text-right" scope="col">
+                          <%= @work_receipt.car_no %>
+                        </th>
+                      </tr>
+                      <tr class="bg-light-gray">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th class="text-center" scope="col" colSpan="2">Total Amount</th>
+                        <th class="text-right" scope="col"><%= @work_receipt.total %></th>
+                      </tr>
+                      <% payments =  @work_receipt.payments%>
+                      <% payments.each do |payment| %>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th class="text-center" scope="col" colSpan="2"><%= payment.created_at.strftime("%d-%m-%Y %I:%M %P") %></th>
+                          <th class="text-right" scope="col"><%= payment.amount %></th>
+                        </tr>
+                      <% end if payments.count > 1%>
+                      <tr class="bg-light-gray">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th class="text-center" scope="col" colSpan="2">Total Paid</th>
+                        <th class="text-right" scope="col"><%= @work_receipt.paid_amount %></th>
+                      </tr>
+                      <tr class="<%= @work_receipt.due > 0? 'bg-light-danger' : '' %>">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th class="text-center" scope="col" colSpan="2">Due</th>
+                        <th class="text-right" scope="col"><%= @work_receipt.due %></th>
+                      </tr>
+                      <tr>
+                        <th class="text-right" scope="col" colSpan="5">
+                          <button type="button" id="printReceiptBtn" class="btn btn-primary btn-fw">Print</button>
+                        </th>
+                      </tr>
+                    </tfoot>
+              </table>
+              <div class="toast-container">
+                
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Car no:</strong>
-  <%= @work_receipt.car_no %>
-</p>
+<script>
+  $(document).ready(function(){
 
-<p>
-  <strong>Comment:</strong>
-  <%= @work_receipt.comment %>
-</p>
+    $('#body_layer').on("click", "#printReceiptBtn", function(evt) {
+      var printBody = document.getElementById('printReceipt');
+      html2pdf(printBody);
+    });
 
-<p>
-  <strong>User:</strong>
-  <%= @work_receipt.user_id %>
-</p>
-
-<p>
-  <strong>Customer:</strong>
-  <%= @work_receipt.customer_id %>
-</p>
-
-<p>
-  <strong>Total:</strong>
-  <%= @work_receipt.total %>
-</p>
-
-<p>
-  <strong>Discount:</strong>
-  <%= @work_receipt.discount %>
-</p>
-
-<%= link_to 'Edit', edit_work_receipt_path(@work_receipt) %> |
-<%= link_to 'Back', work_receipts_path %>
+  });
+</script>
