@@ -22,11 +22,11 @@ class WorkReceipt < ApplicationRecord
   end
 
   def total_a
-    total - vat - discount
+    total - vat + discount
   end
 
   def total_b
-    total - discount
+    total + discount
   end
 
 end

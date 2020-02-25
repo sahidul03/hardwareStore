@@ -22,12 +22,23 @@ class NewPayment extends React.Component {
       paymentConfirmationModalShow: false,
       errorMessage: '',
       showSuccessMessage: false,
-      showToastMessage: false
+      showToastMessage: false,
+      receiptSuccessfullCreationModal: false,
+      receipt: null,
     };
   }
 
   closeToastMessage(){
     this.setState({ showToastMessage: false });
+  }
+
+  hideReceiptSuccessfullCreationModal() {
+    this.setState({ receiptSuccessfullCreationModal: false });
+  }
+
+  goToReceiptPage() {
+    this.setState({ receiptSuccessfullCreationModal: false });
+    window.location = "/work_receipts/" + this.state.receipt.id;
   }
 
   hideModal() {
@@ -96,8 +107,7 @@ class NewPayment extends React.Component {
     }).then((response) => response.json())
     .then((responseJson) => { 
         if (responseJson.id) {
-          this.setState({ selectedJobs: [], paymentSubmitted: false, paymentConfirmationModalShow: false, showToastMessage: true });
-          window.location = "/work_receipts/" + responseJson.id;
+          this.setState({ receipt: responseJson, selectedJobs: [], paymentSubmitted: false, paymentConfirmationModalShow: false, receiptSuccessfullCreationModal: true });
         }
     })
     .catch((error) => {
@@ -274,15 +284,6 @@ class NewPayment extends React.Component {
                   </table>
                   : <h4 className="text-center">Please select JOB first</h4>
                   }
-                  <div className="toast-container">
-                    <Toast onClose={() => this.closeToastMessage() } show={this.state.showToastMessage}  delay={3000} autohide>
-                      <Toast.Header>
-                        <i className="mdi mdi-check text-success mr-1 font-20"></i>
-                        <strong className="mr-auto text-success">Success</strong>
-                      </Toast.Header>
-                      <Toast.Body className="text-success">Payment has been made successfully.</Toast.Body>
-                    </Toast>
-                  </div>
                 </div>
                 <div className="col-4 left-border position-relative">
                     <h2>Jobs List</h2>
@@ -316,6 +317,17 @@ class NewPayment extends React.Component {
                     <Modal.Footer>
                       <Button variant="danger" onClick={() => this.hideModal()}>
                         Close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal show={this.state.receiptSuccessfullCreationModal} backdrop="static" onHide={() => this.hideReceiptSuccessfullCreationModal()}>
+                    <Modal.Header>
+                      <Modal.Title>Success</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body><span className="text-success">Payment has been made successfully</span></Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="info" onClick={() => this.goToReceiptPage()}>
+                        Receipt
                       </Button>
                     </Modal.Footer>
                   </Modal>

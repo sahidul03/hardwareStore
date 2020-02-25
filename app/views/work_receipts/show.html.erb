@@ -4,13 +4,14 @@
       <div class="col-12 stretch-card">
         <div class="card">
           <div class="card-header">
-            <span class="display-4">Customer Name: <span class="text-primary"><%= @work_receipt.customer.name %></span> </span>
-            <span class="display-4 pull-right">Mobile: <span class="text-primary"><%= @work_receipt.customer.phone %></span></span>
+            <span class="display-5">Customer Name: <span class="text-primary"><%= @work_receipt.customer.name %></span> </span>
+            <span class="display-5 pull-right">Mobile: <span class="text-primary"><%= @work_receipt.customer.phone %></span></span><br>
+            <span class="display-6 pull-right">Address: <span class="text-primary"><%= @work_receipt.customer.address %></span></span>
           </div>
           <div class="card-body">
           <div class="row">
             <div id="invoicePart" class="col-12">
-              <table class="table table-hover">
+              <table class="table table-hover" style="background-color: white; opacity: 0.9;">
                     <thead>
                     <tr>
                         <th class="text-center">Job ID</th>
