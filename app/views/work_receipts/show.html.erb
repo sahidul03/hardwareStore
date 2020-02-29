@@ -1,113 +1,128 @@
-<div id="printReceipt" class="row">
+<div class="row">
   <div class="col-md-12 d-flex align-items-stretch grid-margin">
     <div class="row flex-grow">
       <div class="col-12 stretch-card">
         <div class="card">
-          <div class="card-header">
-            <span class="display-5">Customer Name: <span class="text-primary"><%= @work_receipt.customer.name %></span> </span>
-            <span class="display-5 pull-right">Mobile: <span class="text-primary"><%= @work_receipt.customer.phone %></span></span><br>
-            <span class="display-6 pull-right">Address: <span class="text-primary"><%= @work_receipt.customer.address %></span></span>
-          </div>
-          <div class="card-body">
-          <div class="row">
-            <div id="invoicePart" class="col-12">
-              <table class="table table-hover" style="background-color: white; opacity: 0.9;">
-                    <thead>
-                    <tr>
-                        <th class="text-center">Job ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-right">Total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      <% @work_receipt.receipt_items.each do |item| %>
-                        <%- job = item.job %>
+          <div id="printReceipt">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-12 text-center mb-3">
+                  <div class="display-4 text-center" style="font-family: serif"><%= ENV["COMPANY_NAME"] %></div>
+                  <div class="display-5 text-center mt-2"><%= ENV["COMPANY_TITLE"] %></div>
+                </div>
+                <div class="col-6">
+                  <div class="display-6">Customer Name: <span class="text-primary"><%= @work_receipt.customer.name %></span> </div>
+                  <div class="display-6">Mobile: <span class="text-primary"><%= @work_receipt.customer.phone %></span></div>
+                  <div class="display-6">Address: <span class="text-primary"><%= @work_receipt.customer.address %></span></div>
+                </div>
+                <div class="col-6 text-right">
+                  Date: <%= today_date_time %>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div id="invoicePart" class="col-12">
+                  <table class="table table-hover" style="background-color: white; opacity: 0.94;">
+                        <thead>
                         <tr>
-                          <td class="text-success">
-                            <div class="text-center"><%= item.job_id %></div>
-                          </td>
-                          <td><%= job.name %></td>
-                          <td class="text-left"><%= item.unit_price %></td>
-                          <td class="text-center"><%= item.quantity %></td>
-                          <td class="text-right"><%= item.total %></td>
+                            <th class="text-center">Job ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Total</th>
                         </tr>
-                      <% end %>
-                    </tbody>
-                    <tfoot>
-                      <tr class="bg-light-gray">
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col" colSpan="2">Total A</th>
-                        <th class="text-right" scope="col"><%= @work_receipt.total_a %></th>
-                      </tr>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col" class="text-right" colSpan="2">10% VAT</th>
-                        <th class="text-right" scope="col"><%= @work_receipt.vat %></th>
-                      </tr>
-                      <tr class="bg-light-gray">
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col" colSpan="2">Total B</th>
-                        <th class="text-right" scope="col"><%= @work_receipt.total_b %></th>
-                      </tr>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col" colSpan="2">Discount</th>
-                        <th class="text-right" scope="col"> <%= @work_receipt.discount %> </th>
-                      </tr>
-                      <tr>
-                        <th scope="col" colSpan="2">
-                          <%= @work_receipt.comment %>
-                        </th>
-                        <th class="text-center" scope="col" colSpan="2">Car No</th>
-                        <th class="text-right" scope="col">
-                          <%= @work_receipt.car_no %>
-                        </th>
-                      </tr>
-                      <tr class="bg-light-gray">
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col" colSpan="2">Total Amount</th>
-                        <th class="text-right" scope="col"><%= @work_receipt.total %></th>
-                      </tr>
-                      <% payments =  @work_receipt.payments%>
-                      <% payments.each do |payment| %>
-                        <tr>
-                          <th scope="col"></th>
-                          <th scope="col"></th>
-                          <th class="text-center" scope="col" colSpan="2"><%= payment.created_at.strftime("%d-%m-%Y %I:%M %P") %></th>
-                          <th class="text-right" scope="col"><%= payment.amount %></th>
-                        </tr>
-                      <% end if payments.count > 1%>
-                      <tr class="bg-light-gray">
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col" colSpan="2">Total Paid</th>
-                        <th class="text-right" scope="col"><%= @work_receipt.paid_amount %></th>
-                      </tr>
-                      <tr class="<%= @work_receipt.due > 0? 'bg-light-danger' : '' %>">
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col" colSpan="2">Due</th>
-                        <th class="text-right" scope="col"><%= @work_receipt.due %></th>
-                      </tr>
-                      <tr>
-                        <th class="text-right" scope="col" colSpan="5">
-                          <button type="button" id="printReceiptBtn" class="btn btn-primary btn-fw">Print</button>
-                        </th>
-                      </tr>
-                    </tfoot>
-              </table>
-              <div class="toast-container">
-                
+                        </thead>
+                        <tbody>
+                          <% @work_receipt.receipt_items.each do |item| %>
+                            <%- job = item.job %>
+                            <tr>
+                              <td class="text-success">
+                                <div class="text-center"><%= item.job_id %></div>
+                              </td>
+                              <td><%= job.name %></td>
+                              <td class="text-left"><%= item.unit_price %></td>
+                              <td class="text-center"><%= item.quantity %></td>
+                              <td class="text-right"><%= item.total %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                        <tfoot>
+                          <tr class="bg-light-gray">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th class="text-center" scope="col" colSpan="2">Total A</th>
+                            <th class="text-right" scope="col"><%= @work_receipt.total_a %></th>
+                          </tr>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" class="text-right" colSpan="2">10% VAT</th>
+                            <th class="text-right" scope="col"><%= @work_receipt.vat %></th>
+                          </tr>
+                          <tr class="bg-light-gray">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th class="text-center" scope="col" colSpan="2">Total B</th>
+                            <th class="text-right" scope="col"><%= @work_receipt.total_b %></th>
+                          </tr>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th class="text-center" scope="col" colSpan="2">Discount</th>
+                            <th class="text-right" scope="col"> <%= @work_receipt.discount %> </th>
+                          </tr>
+                          <tr>
+                            <th scope="col" colSpan="2">
+                              <%= @work_receipt.comment %>
+                            </th>
+                            <th class="text-center" scope="col" colSpan="2">Car No</th>
+                            <th class="text-right" scope="col">
+                              <%= @work_receipt.car_no %>
+                            </th>
+                          </tr>
+                          <tr class="bg-light-gray">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th class="text-center" scope="col" colSpan="2">Total Amount</th>
+                            <th class="text-right" scope="col"><%= @work_receipt.total %></th>
+                          </tr>
+                          <% payments =  @work_receipt.payments%>
+                          <% payments.each do |payment| %>
+                            <tr>
+                              <th class="text-center" scope="col" colSpan="2"><%= payment.created_at.strftime("%d-%m-%Y %I:%M %P") %></th>
+                              <th scope="col"></th>
+                              <th scope="col">Payment amount</th>
+                              <th class="text-right" scope="col"><%= payment.amount %></th>
+                            </tr>
+                          <% end %>
+                          <tr class="bg-light-gray">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th class="text-center" scope="col" colSpan="2">Total Paid</th>
+                            <th class="text-right" scope="col"><%= @work_receipt.paid_amount %></th>
+                          </tr>
+                          <tr class="<%= @work_receipt.due > 0? 'bg-light-danger' : '' %>">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th class="text-center" scope="col" colSpan="2">Due</th>
+                            <th class="text-right" scope="col"><%= @work_receipt.due %></th>
+                          </tr>
+                        </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="col-12 mt-3">
+                <div class="display-6"><%= ENV["COMPANY_NAME"] %></div>
+                <div class="display-6">Address: <span class="text-primary"><%= ENV["COMPANY_ADDRESS"] %></span>, T&T Phone: <span class="text-primary"><%= ENV["COMPANY_TNT_PHONE"] %></span></div>
+                <div class="display-6">Mobile: <span class="text-primary"><%= ENV["COMPANY_MOBILE"] %></span>, Email: <span class="text-primary"><%= ENV["COMPANY_EMAIL"] %></span></div>
               </div>
             </div>
           </div>
+          <div class="col-12 text-right mt-3 mb-3">
+            <button type="button" id="printReceiptBtn" class="btn btn-primary btn-fw">Print</button>
           </div>
         </div>
       </div>

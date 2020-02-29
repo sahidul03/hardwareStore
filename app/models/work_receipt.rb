@@ -13,9 +13,6 @@ class WorkReceipt < ApplicationRecord
 
   scope :search_by_car, -> (car) { where("car_no LIKE '%#{car}%'") }
 
-  def paid_amount
-    total - due
-  end
 
   def paid_amount
     total - due

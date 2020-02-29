@@ -35,9 +35,9 @@
                     <%= link_to payment_work_receipt_path(customer.id), class: 'btn btn-outline-primary', title: 'Make Payment' do %>
                       <i class="mdi mdi-credit-card-plus"></i>
                     <% end %>
-                    <button type="button" class="btn btn-outline-primary" title="History">
+                    <%= link_to history_customer_path(customer.id), class: 'btn btn-outline-primary', title: 'History' do %>
                       <i class="mdi mdi-history"></i>
-                    </button>
+                    <% end %>
                   </div>
                 </td>
               </tr>

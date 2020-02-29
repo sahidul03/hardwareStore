@@ -166,7 +166,7 @@ class NewPayment extends React.Component {
     return (
       <React.Fragment>
         <div className="row">
-                <div id="invoicePart" className="col-8">
+                <div className="col-8">
                   {this.state.selectedJobs.length > 0 ?
                   <table className="table table-hover">
                         <thead>

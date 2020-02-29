@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :history]
 
   # GET /customers
   # GET /customers.json
@@ -15,6 +15,24 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+  end
+
+  # GET /customers/1/history
+  # GET /customers/1/history.json
+  def history
+    if params[:status] == 'paid' && params[:car].present?
+      @work_receipts = @customer.work_receipts.includes(:customer).fully_paid.search_by_car(params[:car]).page(params[:page])
+    elsif params[:status] == 'unpaid' && params[:car].present?
+      @work_receipts = @customer.work_receipts.includes(:customer).not_fully_paid.search_by_car(params[:car]).page(params[:page])
+    elsif params[:status] == 'paid' && !params[:car].present?
+      @work_receipts = @customer.work_receipts.includes(:customer).fully_paid.page(params[:page])
+    elsif params[:status] == 'unpaid' && !params[:car].present?
+      @work_receipts = @customer.work_receipts.includes(:customer).not_fully_paid.page(params[:page])
+    elsif params[:status] != 'unpaid' && params[:status] != 'paid' && params[:car].present?
+      @work_receipts = @customer.work_receipts.includes(:customer).search_by_car(params[:car]).page(params[:page])
+    else
+      @work_receipts = @customer.work_receipts.includes(:customer).page(params[:page])
+    end
   end
 
   # GET /customers/new

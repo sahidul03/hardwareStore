@@ -5,7 +5,11 @@ Rails.application.routes.draw do
       get :payment
     end
   end
-  resources :customers
+  resources :customers do
+    member do
+      get :history
+    end
+  end
   resources :jobs
   resources :job_types
   devise_for :users, controllers: { :sessions => "sessions", :registrations => "registrations" }
