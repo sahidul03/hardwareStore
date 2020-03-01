@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 mb-3">
+    <span class="display-4 text-primary">Payment Receipts</span>
+    </div>
+    <div class="col-lg-3 col-md-3">
+    <select class="form-control pull-right" value="<%= params[:status]%>" name="payment_status" id="payment_status">
+        <option value="all">Paid and unpaid both payments</option>
+        <option value="paid">Only paid payments</option>
+        <option value="unpaid">Only unpaid payments</option>
+    </select>
+    </div>
+    <div class="col-lg-9 col-md-9">
+    <input type="search" id="search_by_receipt_id" class="search-field onlyPositiveInteger" value="<%= params[:receipt_id] %>" placeholder="Search by receipt Id" title="Search by receipt Id"/>
+    <input type="search" id="search_by_car_no" class="search-field" value="<%= params[:car] %>" placeholder="Search by Car No" title="Search by Car No"/>
+    <input type="button" id="search_button" class="btn btn-primary" value="Search"/>
+    </div>
+</div>

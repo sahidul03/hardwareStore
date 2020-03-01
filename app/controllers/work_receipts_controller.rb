@@ -6,18 +6,12 @@ class WorkReceiptsController < ApplicationController
   # GET /work_receipts
   # GET /work_receipts.json
   def index
-    if params[:status] == 'paid' && params[:car].present?
-      @work_receipts = WorkReceipt.includes(:customer).fully_paid.search_by_car(params[:car]).page(params[:page])
-    elsif params[:status] == 'unpaid' && params[:car].present?
-      @work_receipts = WorkReceipt.includes(:customer).not_fully_paid.search_by_car(params[:car]).page(params[:page])
-    elsif params[:status] == 'paid' && !params[:car].present?
-      @work_receipts = WorkReceipt.includes(:customer).fully_paid.page(params[:page])
-    elsif params[:status] == 'unpaid' && !params[:car].present?
-      @work_receipts = WorkReceipt.includes(:customer).not_fully_paid.page(params[:page])
-    elsif params[:status] != 'unpaid' && params[:status] != 'paid' && params[:car].present?
-      @work_receipts = WorkReceipt.includes(:customer).search_by_car(params[:car]).page(params[:page])
+    if params[:status] == 'paid'
+      @work_receipts = WorkReceipt.includes(:customer).fully_paid.search_by_car_and_receipt_id(params[:car], params[:receipt_id]).page(params[:page])
+    elsif params[:status] == 'unpaid'
+      @work_receipts = WorkReceipt.includes(:customer).not_fully_paid.search_by_car_and_receipt_id(params[:car], params[:receipt_id]).page(params[:page])
     else
-      @work_receipts = WorkReceipt.includes(:customer).all.page(params[:page])
+      @work_receipts = WorkReceipt.includes(:customer).search_by_car_and_receipt_id(params[:car], params[:receipt_id]).page(params[:page])
     end
   end
 
