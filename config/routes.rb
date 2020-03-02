@@ -10,6 +10,11 @@ Rails.application.routes.draw do
       get :history
     end
   end
+  resources :reports do
+    collection do
+      get :dashboard
+    end
+  end
   resources :jobs
   resources :job_types
   devise_for :users, controllers: { :sessions => "sessions", :registrations => "registrations" }
