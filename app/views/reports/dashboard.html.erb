@@ -1,35 +1,81 @@
-<div class="row">
-  <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="card-header">
-          <span class="display-4 text-primary">Dashboard</span>
-        </div>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Year</th>
-              <th>Paid</th>
-              <th>Due</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @reports.each do |year, records| %>
-                <%- total_due = records.sum(&:due) %>
-                <%- total = records.sum(&:total) %>
-              <tr>
-                <td>
-                  <%= year %>
-                </td>
-                <td><%= total - total_due %></td>
-                <td><%= total_due %></td>
-                <td><%= total %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+<div class="card">
+    <div class="card-header">
+        <span class="display-4 text-primary">Dashboard</span>
     </div>
-  </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6 cl-md-6 col-sm-12 grid-margin stretch-card">
+                <table class="table table-hover border-light-gray">
+                    <thead>
+                    <tr class="bg-light-gray">
+                        <th>Year</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%- total_due = 0 %>
+                    <%- total_total = 0 %>
+                    <% @reports.each do |year, records| %>
+                        <%- due = records.sum(&:due) %>
+                        <%- total = records.sum(&:total) %>
+                        <%- total_due = total_due + due %>
+                        <%- total_total = total_total + total %>
+                        <tr>
+                            <td>
+                                <%= year %>
+                            </td>
+                            <td><span class="badge badge-success"><%= total - due %></span></td>
+                            <td><span class="badge badge-danger"><%= due %></span></td>
+                            <td><span class="badge badge-primary"><%= total %></span></td>
+                        </tr>
+                    <% end %>
+                        <tr class="bg-light-gray">
+                            <th scope="col">Total</th>
+                            <th scope="col"><%= total_total - total_due %></th>
+                            <th scope="col"><%= total_due %></th>
+                            <th scope="col"><%= total_total %></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-6 cl-md-6 col-sm-12  grid-margin stretch-card">
+                <table class="table table-hover border-light-gray">
+                    <thead>
+                    <tr class="bg-light-gray">
+                        <th>Month</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%- total_due = 0 %>
+                    <%- total_total = 0 %>
+                    <% @this_year.each do |month, records| %>
+                        <%- due = records.sum(&:due) %>
+                        <%- total = records.sum(&:total) %>
+                        <%- total_due = total_due + due %>
+                        <%- total_total = total_total + total %>
+                        <tr>
+                            <td>
+                                <%= Date::MONTHNAMES[month] %>
+                            </td>
+                            <td><span class="badge badge-success"><%= total - due %></span></td>
+                            <td><span class="badge badge-danger"><%= due %></span></td>
+                            <td><span class="badge badge-primary"><%= total %></span></td>
+                        </tr>
+                    <% end %>
+                        <tr class="bg-light-gray">
+                            <th scope="col">Total</th>
+                            <th scope="col"><%= total_total - total_due %></th>
+                            <th scope="col"><%= total_due %></th>
+                            <th scope="col"><%= total_total %></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
