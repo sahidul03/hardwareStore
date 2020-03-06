@@ -31,7 +31,7 @@
         </td>
         <td><%= receipt.paid_amount %></td>
         <td><%= receipt.total %></td>
-        <td> <%= receipt.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
+        <td> <%= date_format_with_time receipt.created_at %> </td>
         <td>
             <%= link_to work_receipt_path(receipt), class: 'btn btn-outline-primary' do %>
             Details

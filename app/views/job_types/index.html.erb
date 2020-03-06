@@ -27,7 +27,7 @@
                   <label class="badge badge-<%= job_type.active ? 'success' : 'danger' %>"><%= job_type.status %></label>
                 </td>
                 <td class="text-primary" data-toggle="tooltip" data-placement="top" title="<%= user.name %>"> <%= user.email %> </td>
-                <td> <%= job_type.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
+                <td> <%= date_format_with_time job_type.created_at %> </td>
                 <td>
                   <%= link_to edit_job_type_path(job_type), class: 'btn btn-outline-primary' do %>
                     <i class="fa fa-edit"></i>

@@ -4,4 +4,16 @@ module ApplicationHelper
         Time.now.strftime("%d-%m-%Y %I:%M %P")
     end
 
+    def current_month
+        Time.now.strftime("%B-%Y")
+    end
+
+    def current_year
+        Time.now.strftime("%Y")
+    end
+
+    def date_format_with_time date
+        date.strftime("%d-%m-%Y %I:%M %P")
+    end
+
 end

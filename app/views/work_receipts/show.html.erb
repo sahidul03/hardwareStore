@@ -90,7 +90,7 @@
                           <% payments =  @work_receipt.payments%>
                           <% payments.each do |payment| %>
                             <tr>
-                              <th class="text-center" scope="col" colSpan="2"><%= payment.created_at.strftime("%d-%m-%Y %I:%M %P") %></th>
+                              <th class="text-center" scope="col" colSpan="2"><%= date_format_with_time payment.created_at %></th>
                               <th scope="col"></th>
                               <th scope="col">Payment amount</th>
                               <th class="text-right" scope="col"><%= payment.amount %></th>

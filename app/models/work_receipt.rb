@@ -15,7 +15,9 @@ class WorkReceipt < ApplicationRecord
 
   scope :search_by_car_and_receipt_id, -> (car, receipt_id) { where("car_no LIKE '%#{car}%' AND id LIKE '%#{receipt_id}%'") }
 
-  scope :for_year, -> (date) { where("created_at >= ? and created_at <= ?", "#{date.year}0101", "#{date.year}1231") }
+  scope :for_year, -> (date) { where("created_at >= ? and created_at <= ?", date.beginning_of_year, date.end_of_year) }
+  
+  scope :for_month, -> (date) { where("created_at >= ? and created_at <= ?", date.beginning_of_month, date.end_of_month) }
 
 
   def paid_amount

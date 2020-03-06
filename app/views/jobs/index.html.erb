@@ -35,7 +35,7 @@
                   <%= job.job_type.title  %>
                 </td>
                 <td class="text-primary" data-toggle="tooltip" data-placement="top" title="<%= user.name %>"> <%= user.email %> </td>
-                <td> <%= job.created_at.strftime("%d-%m-%Y %I:%M %P") %> </td>
+                <td> <%= date_format_with_time job.created_at %> </td>
                 <td>
                   <%= link_to edit_job_path(job), class: 'btn btn-outline-primary' do %>
                     <i class="fa fa-edit"></i>

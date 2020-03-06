@@ -4,78 +4,64 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-lg-6 cl-md-6 col-sm-12 grid-margin stretch-card">
-                <table class="table table-hover border-light-gray">
-                    <thead>
-                    <tr class="bg-light-gray">
-                        <th>Year</th>
-                        <th>Paid</th>
-                        <th>Due</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%- total_due = 0 %>
-                    <%- total_total = 0 %>
-                    <% @reports.each do |year, records| %>
-                        <%- due = records.sum(&:due) %>
-                        <%- total = records.sum(&:total) %>
-                        <%- total_due = total_due + due %>
-                        <%- total_total = total_total + total %>
-                        <tr>
-                            <td>
-                                <%= year %>
-                            </td>
-                            <td><span class="badge badge-success"><%= total - due %></span></td>
-                            <td><span class="badge badge-danger"><%= due %></span></td>
-                            <td><span class="badge badge-primary"><%= total %></span></td>
-                        </tr>
-                    <% end %>
-                        <tr class="bg-light-gray">
-                            <th scope="col">Total</th>
-                            <th scope="col"><%= total_total - total_due %></th>
-                            <th scope="col"><%= total_due %></th>
-                            <th scope="col"><%= total_total %></th>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-6 cl-md-6 col-sm-12">
+                <div id="printAllYearsReportContent">
+                    <h4>All Year Reports</h4>
+                    <%= render partial: 'summary_reports', locals: { reports: @all_years, report_base: 'Year' } %>
+                </div>
+                <div class="text-right mt-3 mb-3">
+                    <button type="button" id="printAllYearsReportBtn" class="btn btn-primary btn-fw">Print</button>
+                </div>
             </div>
-            <div class="col-lg-6 cl-md-6 col-sm-12  grid-margin stretch-card">
-                <table class="table table-hover border-light-gray">
-                    <thead>
-                    <tr class="bg-light-gray">
-                        <th>Month</th>
-                        <th>Paid</th>
-                        <th>Due</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%- total_due = 0 %>
-                    <%- total_total = 0 %>
-                    <% @this_year.each do |month, records| %>
-                        <%- due = records.sum(&:due) %>
-                        <%- total = records.sum(&:total) %>
-                        <%- total_due = total_due + due %>
-                        <%- total_total = total_total + total %>
-                        <tr>
-                            <td>
-                                <%= Date::MONTHNAMES[month] %>
-                            </td>
-                            <td><span class="badge badge-success"><%= total - due %></span></td>
-                            <td><span class="badge badge-danger"><%= due %></span></td>
-                            <td><span class="badge badge-primary"><%= total %></span></td>
-                        </tr>
-                    <% end %>
-                        <tr class="bg-light-gray">
-                            <th scope="col">Total</th>
-                            <th scope="col"><%= total_total - total_due %></th>
-                            <th scope="col"><%= total_due %></th>
-                            <th scope="col"><%= total_total %></th>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-6 cl-md-6 col-sm-12">
+                <div id="printCurrentYearsReportContent">
+                    <h4>Current Year (<%= current_year %>) Reports</h4>
+                    <%= render partial: 'summary_reports', locals: { reports: @current_year, report_base: 'Month' } %>
+                </div>
+                <div class="text-right mt-3 mb-3">
+                    <button type="button" id="printCurrentYearsReportBtn" class="btn btn-primary btn-fw">Print</button>
+                </div>
+            </div>
+            <div class="col-lg-6 cl-md-6 col-sm-12">
+                <div id="printCurrentMonthReportContent">
+                    <h4>Current Month (<%= current_month %>) Reports</h4>
+                    <%= render partial: 'summary_reports', locals: { reports: @current_month, report_base: 'Day' } %>
+                </div>
+                <div class="text-right mt-3 mb-3">
+                    <button type="button" id="printCurrentMonthReportBtn" class="btn btn-primary btn-fw">Print</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+  $(document).ready(function(){
+
+    $('#body_layer').on("click", "#printAllYearsReportBtn", function(evt) {
+      var printBody = document.getElementById('printAllYearsReportContent');
+      var opt = {
+                  filename: 'AllYearsReport.pdf',
+                };
+      html2pdf().set(opt).from(printBody).save();
+    });
+
+    $('#body_layer').on("click", "#printCurrentYearsReportBtn", function(evt) {
+        var printBody = document.getElementById('printCurrentYearsReportContent');
+        var opt = {
+                    filename: 'CurrentYearsReport.pdf',
+                  };
+        html2pdf().set(opt).from(printBody).save();
+    });
+
+    $('#body_layer').on("click", "#printCurrentMonthReportBtn", function(evt) {
+        var printBody = document.getElementById('printCurrentMonthReportContent');
+        var opt = {
+                    filename: 'CurrentMonthReport.pdf',
+                  };
+        html2pdf().set(opt).from(printBody).save();
+    });
+
+  });
+</script>

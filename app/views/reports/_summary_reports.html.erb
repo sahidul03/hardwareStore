@@ -1,0 +1,38 @@
+<table class="table table-hover border-light-gray">
+    <thead>
+    <tr class="bg-light-gray">
+        <th><%= report_base %></th>
+        <th>Paid</th>
+        <th>Due</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%- total_due = 0 %>
+    <%- total_total = 0 %>
+    <% reports.each do |key, records| %>
+        <%- due = records.sum(&:due) %>
+        <%- total = records.sum(&:total) %>
+        <%- total_due = total_due + due %>
+        <%- total_total = total_total + total %>
+        <tr>
+            <td>
+                <% if report_base == 'Month' %>
+                    <%= Date::MONTHNAMES[key] %>
+                <% else %>
+                    <%= key %>
+                <% end %>
+            </td>
+            <td><span class="badge badge-success"><%= total - due %></span></td>
+            <td><span class="badge badge-danger"><%= due %></span></td>
+            <td><span class="badge badge-primary"><%= total %></span></td>
+        </tr>
+    <% end %>
+        <tr class="bg-light-gray">
+            <th scope="col">Total</th>
+            <th scope="col"><%= total_total - total_due %></th>
+            <th scope="col"><%= total_due %></th>
+            <th scope="col"><%= total_total %></th>
+        </tr>
+    </tbody>
+</table>
