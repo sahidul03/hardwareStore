@@ -2,9 +2,9 @@ class ReportsController < ApplicationController
     before_action :authenticate_user!
 
     def dashboard
-        @all_years = WorkReceipt.select(:id, :due, :total, :discount, :created_at).group_by { |m| m.created_at.year }
-        @current_year = WorkReceipt.for_year(Date.today).select(:id, :due, :total, :discount, :created_at).group_by { |m| m.created_at.month }
-        @current_month = WorkReceipt.for_month(Date.today).select(:id, :due, :total, :discount, :created_at).group_by { |m| m.created_at.day }
+        @all_years = WorkReceipt.select_summary_reports.group_by_year
+        @current_year = WorkReceipt.for_year(Date.today).select_summary_reports.group_by_month
+        @current_month = WorkReceipt.for_month(Date.today).select_summary_reports.group_by_day
     end
 
     def yearly_summary

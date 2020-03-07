@@ -19,6 +19,14 @@ class WorkReceipt < ApplicationRecord
   
   scope :for_month, -> (date) { where("created_at >= ? and created_at <= ?", date.beginning_of_month, date.end_of_month) }
 
+  scope :select_summary_reports, -> { select(:id, :due, :total, :discount, :created_at) }
+
+  scope :group_by_year, -> { group_by { |m| m.created_at.year } }
+
+  scope :group_by_month, -> { group_by { |m| m.created_at.month } }
+
+  scope :group_by_day, -> { group_by { |m| m.created_at.day } }
+
 
   def paid_amount
     total - due
