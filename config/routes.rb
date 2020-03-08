@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :reports do
     collection do
       get :dashboard
+      get :month_to_month_summary
     end
   end
   resources :jobs

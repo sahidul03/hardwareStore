@@ -16,4 +16,12 @@ module ApplicationHelper
         date.strftime("%d-%m-%Y %I:%M %P")
     end
 
+    def date_format_without_time date
+        date.strftime("%d-%m-%Y")
+    end
+
+    def date_format_with_month_year date
+        date.strftime("%B-%Y")
+    end
+
 end

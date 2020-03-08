@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-4 col-md-5 col-sm-5">
+      <label class="mr-3">Start Date:</label>
+      <%= date_select("start", "date", start_year: 2017, discard_day: true, selected: (start_date || Date.today.beginning_of_year) ) %>
+    </div>
+    <div class="col-lg-4 col-md-5 col-sm-5">
+      <label class="mr-3">End Date:</label>
+      <%= date_select("end", "date", start_year: 2017, discard_day: true, selected: (end_date || Date.today.end_of_year) ) %>
+    </div>
+    <div class="col-lg-2 col-md-2">
+      <input type="button" id="search_button" class="btn btn-primary" value="Search"/>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+
+    function setSearchParams() {
+      var start_year = $("#start_date_1i").val();
+      var start_month = $("#start_date_2i").val();
+      var end_year = $("#end_date_1i").val();
+      var end_month = $("#end_date_2i").val();
+      var start_date = start_year + '/' + start_month + '/01';
+      var end_date = end_year + '/' + end_month + '/01';
+      var query_params = '?start_date=' + start_date + '&end_date=' + end_date;
+
+      window.location.href = location.pathname + query_params;
+    }
+
+    $('#body_layer').on("click", "#search_button", function(evt) {
+      setSearchParams();
+    });
+
+  });
+</script>

@@ -17,8 +17,10 @@
         <%- total_total = total_total + total %>
         <tr>
             <td>
-                <% if report_base == 'Month' %>
-                    <%= Date::MONTHNAMES[key] %>
+                <% if report_base == 'Day' %>
+                    <%= date_format_without_time key %>
+                <% elsif report_base == 'Month' %>
+                    <%= date_format_with_month_year key %>
                 <% else %>
                     <%= key %>
                 <% end %>
