@@ -24,4 +24,13 @@ module ApplicationHelper
         date.strftime("%B-%Y")
     end
 
+    # validation
+    def validate_date date
+        begin
+            Date.parse(date)
+        rescue ArgumentError
+            nil
+        end
+    end
+
 end
