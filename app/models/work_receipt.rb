@@ -19,6 +19,8 @@ class WorkReceipt < ApplicationRecord
 
   scope :date_to_date_monthly_based, -> (start_date, end_date) { where("created_at >= ? and created_at <= ?", start_date.beginning_of_month, end_date.end_of_month) }
   
+  scope :date_to_date_daily_based, -> (start_date, end_date) { where("created_at >= ? and created_at <= ?", start_date.beginning_of_day, end_date.end_of_day) }
+  
   scope :for_month, -> (date) { where("created_at >= ? and created_at <= ?", date.beginning_of_month, date.end_of_month) }
 
   scope :select_summary_reports, -> { select(:id, :due, :total, :discount, :created_at) }

@@ -17,6 +17,12 @@ class ReportsController < ApplicationController
         @reports = WorkReceipt.date_to_date_monthly_based(@start_date, @end_date).select_summary_reports.group_by_month
     end
 
+    def date_to_date_reports
+        @start_date = validate_date(params[:start_date] || '') || Date.today.beginning_of_month
+        @end_date = validate_date(params[:end_date] || '') || Date.today.end_of_month
+        @reports = WorkReceipt.date_to_date_daily_based(@start_date, @end_date).select_summary_reports.group_by_day
+    end
+
     def date_valid?(date)
         format = '%Y-%m-%d'
         DateTime.strptime(date, format)

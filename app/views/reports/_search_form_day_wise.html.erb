@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-lg-4 col-md-5 col-sm-5">
+      <label class="mr-3">Start Date:</label>
+      <input id="start_date" name="start_date" type="date" min="2017-00-00" value="<%= start_date %>" />
+    </div>
+    <div class="col-lg-4 col-md-5 col-sm-5">
+      <label class="mr-3">End Date:</label>
+      <input id="end_date" name="end_date" type="date" min="2017-00-00" value="<%= end_date %>" />
+    </div>
+    <div class="col-lg-2 col-md-2">
+      <input type="button" id="search_button" class="btn btn-primary" value="Search"/>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+
+    function setSearchParams() {
+      var start_date = $("#start_date").val();
+      var end_date = $("#end_date").val();
+      var query_params = '?start_date=' + start_date + '&end_date=' + end_date;
+
+      window.location.href = location.pathname + query_params;
+    }
+
+    $('#body_layer').on("click", "#search_button", function(evt) {
+      setSearchParams();
+    });
+
+  });
+</script>

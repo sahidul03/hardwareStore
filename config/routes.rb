@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     collection do
       get :dashboard
       get :month_to_month_summary
+      get :date_to_date_reports
     end
   end
   resources :jobs
